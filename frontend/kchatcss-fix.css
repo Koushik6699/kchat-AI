@@ -1,0 +1,72 @@
+/* Chat Section - Make sure input is visible */
+.chat-section {
+  flex: 0 0 auto; /* Don't let it shrink */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  margin-top: 20px; /* Positive margin to ensure visibility */
+  margin-bottom: 20px;
+}
+
+.chat-input-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0;
+  transition: all 0.5s ease;
+  position: relative; /* Ensure it's positioned normally */
+}
+
+/* Make sure input wrapper is visible */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e0e0e0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 70px;
+  width: 100%;
+}
+
+/* Ensure main page layout doesn't hide input */
+#main-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Logo container - reduce size to make room */
+.logo-container {
+  flex: 0 0 auto;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  transition: all 0.5s ease;
+}
+
+.main-logo {
+  width: 200px; /* Further reduced */
+  height: 200px; /* Further reduced */
+  transition: all 0.5s ease;
+}
+
+/* Chat title - compact */
+.chat-title-container {
+  flex: 0 0 auto;
+  transition: all 0.5s ease;
+  margin-bottom: 10px;
+}
+
+.chat-title {
+  font-size: 28px; /* Smaller to fit better */
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease;
+}

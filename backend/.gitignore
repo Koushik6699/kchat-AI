@@ -1,0 +1,52 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.myenv/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python builds
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+*.env
+
+# Backups
+*.bak
+
+# Node modules (if used in future)
+node_modules/
+
+# Firebase temp files
+firebase-debug.log
+
+# Python config
+pip-log.txt
+
+# Compiled code
+*.so
+
+# Temporary files
+*.tmp
+
+# Uploads (optional)
+uploads/
