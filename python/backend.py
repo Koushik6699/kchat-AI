@@ -1,14 +1,25 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import google.generativeai as genai
+from dotenv import load_dotenv
+
+# Load the secret .env file
+load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # allow browser requests
+CORS(app)
 
-# 🔑 put your NEW key here (inside quotes)
-genai.configure(api_key="YOUR_NEW_API_KEY_HERE")
+# Get the key securely
+api_key = os.getenv("GEMINI_API_KEY")
 
-# good chat model
+if not api_key:
+    print("❌ Error: GEMINI_API_KEY is missing! Check your .env file.")
+else:
+    genai.configure(api_key=api_key)
+    print("✅ API Key loaded successfully!")
+
+# model setup
 model = genai.GenerativeModel("models/gemini-2.5-flash")
 
 @app.route("/", methods=["GET"])
@@ -30,7 +41,6 @@ def chat():
     except Exception as e:
         print("Error talking to Gemini:", e)
         return jsonify({"reply": "Server error while talking to AI. Try again."}), 500
-
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
