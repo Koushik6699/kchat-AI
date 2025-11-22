@@ -57,7 +57,7 @@ async function sendMessage() {
 
 // 🧠 Call Python backend → Gemini
 async function sendMessageToBot(message) {
-  const response = await fetch("https://kchat-9uau.onrender.com/chat", {
+  const response = await fetch("http://127.0.0.1:5000/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
