@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to KCHATAI</title>
 
   <!-- Main styles -->
@@ -11,33 +11,21 @@
   <link rel="stylesheet" href="kchat-fix.css" />
 
   <link rel="icon" href="kchatlogo.png" type="image/png" />
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyB3-B0FHzST5pFGzGnGqp5OF7x0pqyBSFQ",
-      authDomain: "kchatai-94463.firebaseapp.com",
-      projectId: "kchatai-94463",
-      appId: "1:1071424345239:web:9205fac32eea9ceb4205d2",
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
 </head>
 <body>
 
+  <!-- MAIN CHAT PAGE ONLY -->
   <div id="main-page" class="page active">
+    <!-- Top-right user icon (no login/signup now) -->
     <div class="top-nav">
       <div class="nav-buttons">
-        <button onclick="showPage('login-page')" class="nav-button">Log In</button>
-        <button onclick="showPage('signup-page')" class="nav-button">Sign Up</button>
         <div class="user-icon-container">
           <span class="user-icon">👤</span>
         </div>
       </div>
     </div>
 
+    <!-- Top-left tools -->
     <div class="top-right-tools">
       <div class="tool-icon" onclick="showMoreTools()">
         <span class="three-dots">⋯</span>
@@ -49,6 +37,7 @@
       </div>
     </div>
 
+    <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
       <div class="sidebar-content">
         <div class="sidebar-options">
@@ -94,6 +83,7 @@
       <div class="theme-option" onclick="setTheme('system')">System</div>
     </div>
 
+    <!-- Main content -->
     <div class="main-content">
       <div class="logo-container" id="main-logo-container">
         <img src="kchatlogo.png" alt="KCHATAI Logo" class="logo main-logo" />
@@ -118,6 +108,7 @@
       </div>
     </div>
 
+    <!-- Chat messages -->
     <div class="chat-messages-container" id="chat-messages-container"></div>
 
     <!-- File Upload Popup -->
@@ -135,77 +126,6 @@
     </div>
   </div>
 
-  <!-- Login Page -->
-  <div id="login-page" class="page">
-    <div class="auth-container">
-      <div class="logo-container">
-        <img src="kchatlogo.png" alt="KCHATAI Logo" class="logo auth-logo" />
-      </div>
-      <div class="auth-box login-box">
-        <h2>Log in to KCHATAI</h2>
-        <form id="loginForm">
-          <input type="text" placeholder="Phone number / email address" required />
-          <input type="password" placeholder="Password" required />
-          <button type="submit" class="auth-button">Log in</button>
-        </form>
-        <div class="links">
-          <a href="#">Forgot password?</a> |
-          <a href="#" onclick="showPage('signup-page')">Sign up</a>
-        </div>
-        <div class="divider">OR</div>
-        <button class="google-login">Log in with Google</button>
-        <div class="back-home-link">
-          <a href="#" onclick="showPage('main-page')">← Back to Home</a>
-        </div>
-      </div>
-    </div>
-    <footer>© 2025 KCHATAI | <a href="#">Rate Us</a> | <a href="#">About Us</a></footer>
-  </div>
-
-  <!-- Signup Page -->
-  <div id="signup-page" class="page">
-    <div class="auth-container">
-      <div class="logo-container">
-        <img src="kchatlogo.png" alt="KCHATAI Logo" class="logo auth-logo" />
-      </div>
-      <div class="auth-box signup-box">
-        <h2>Sign up to KCHATAI</h2>
-        <form id="signupForm" class="signup-form">
-          <input type="text" placeholder="Full Name" required />
-          <input type="email" placeholder="Email Address" required />
-          <input type="password" placeholder="Password" required />
-          <input type="password" placeholder="Confirm Password" required />
-          <div class="checkbox-container">
-            <input type="checkbox" id="remember-me" />
-            <label for="remember-me">Remember me</label>
-          </div>
-          <div class="checkbox-container">
-            <input type="checkbox" id="terms" required />
-            <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
-          </div>
-          <button type="submit" class="auth-button">Create Account</button>
-        </form>
-        <div class="divider">OR</div>
-        <div class="social-buttons-container">
-          <button class="google-signup-small">
-            <span class="social-icon">G</span> Google
-          </button>
-          <button class="facebook-signup-small">
-            <span class="social-icon">f</span> Facebook
-          </button>
-        </div>
-        <div class="links">
-          Already have an account? <a href="#" onclick="showPage('login-page')">Log in</a>
-        </div>
-        <div class="back-home-link">
-          <a href="#" onclick="showPage('main-page')">← Back to Home</a>
-        </div>
-      </div>
-    </div>
-    <footer>© 2025 KCHATAI | <a href="#">Rate Us</a> | <a href="#">About Us</a></footer>
-  </div>
-
-  <!-- JS must be last -->
   <script src="kchatjs.js"></script>
 </body>
 </html>
