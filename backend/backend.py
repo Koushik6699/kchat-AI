@@ -3,20 +3,20 @@ from flask_cors import CORS
 import google.generativeai as genai
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # allow browser requests
 
-genai.configure(api_key="AIzaSyBCC-V3Nh0zOqQM51m77HH12QQfMNE9CH4")
+# 🔑 put your NEW key here (inside quotes)
+genai.configure(api_key="YOUR_NEW_API_KEY_HERE")
+
+# good chat model
 model = genai.GenerativeModel("models/gemini-2.5-flash")
 
 @app.route("/", methods=["GET"])
 def home():
-  return "KCHATAI backend is running ✅", 200
+    return "KCHATAI local backend running ✅", 200
 
-@app.route("/chat", methods=["GET", "POST"])
+@app.route("/chat", methods=["POST"])
 def chat():
-    if request.method == "GET":
-        return jsonify({"message": "Use POST with JSON: { 'message': 'your text' }"}), 200
-
     data = request.get_json()
     user_message = (data.get("message") or "").strip() if data else ""
 
@@ -30,3 +30,7 @@ def chat():
     except Exception as e:
         print("Error talking to Gemini:", e)
         return jsonify({"reply": "Server error while talking to AI. Try again."}), 500
+
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=5000, debug=True)
