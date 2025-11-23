@@ -1,4 +1,4 @@
-# 🤖 KCHATAI - Next Gen AI Assistant
+# 🤖 KCHATAI - Simple AI Assistant
 
 ![Status](https://img.shields.io/badge/Status-Live-success?style=for-the-badge)
 ![Stack](https://img.shields.io/badge/Full%20Stack-Python%20%2B%20JS-blueviolet?style=for-the-badge)
