@@ -5,18 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to KCHATAI</title>
 
-  <!-- Main styles -->
   <link rel="stylesheet" href="kchatcss.css" />
-  <!-- Extra fixes -->
   <link rel="stylesheet" href="kchat-fix.css" />
 
   <link rel="icon" href="kchatlogo.png" type="image/png" />
 </head>
 <body>
 
-  <!-- MAIN CHAT PAGE ONLY -->
   <div id="main-page" class="page active">
-    <!-- Top-right user icon (no login/signup now) -->
     <div class="top-nav">
       <div class="nav-buttons">
         <div class="user-icon-container">
@@ -25,7 +21,6 @@
       </div>
     </div>
 
-    <!-- Top-left tools -->
     <div class="top-right-tools">
       <div class="tool-icon" onclick="showMoreTools()">
         <span class="three-dots">⋯</span>
@@ -37,7 +32,6 @@
       </div>
     </div>
 
-    <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
       <div class="sidebar-content">
         <div class="sidebar-options">
@@ -63,27 +57,17 @@
               <span class="history-icon">💬</span>
               <span class="history-text">How to make a website?</span>
             </div>
-            <div class="history-item">
-              <span class="history-icon">💬</span>
-              <span class="history-text">Tell me about AI</span>
-            </div>
-            <div class="history-item">
-              <span class="history-icon">💬</span>
-              <span class="history-text">What is machine learning?</span>
-            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Theme Popup -->
     <div id="theme-popup" class="theme-popup" onclick="event.stopPropagation();">
       <div class="theme-option" onclick="setTheme('dark')">Dark</div>
       <div class="theme-option" onclick="setTheme('light')">Light</div>
       <div class="theme-option" onclick="setTheme('system')">System</div>
     </div>
 
-    <!-- Main content -->
     <div class="main-content">
       <div class="logo-container" id="main-logo-container">
         <img src="kchatlogo.png" alt="KCHATAI Logo" class="logo main-logo" />
@@ -91,10 +75,13 @@
       <div class="chat-title-container" id="chat-title-container">
         <h1 class="chat-title">How can I help you today?</h1>
       </div>
+      
+      <div class="chat-messages-container" id="chat-messages-container"></div>
+
       <div class="chat-input-container" id="chat-input-container">
         <div class="input-wrapper">
           <button class="add-file-btn" onclick="showFileUpload()">+</button>
-          <input type="text" class="chat-input" id="chat-input" placeholder="Feel free to ask..." />
+          <input type="text" class="chat-input" id="chat-input" placeholder="Feel free to ask..." autocomplete="off" />
           <button class="mic-btn" onclick="startVoiceRecord()">
             <img src="mike.png" alt="Microphone" class="icon-img" />
           </button>
@@ -108,10 +95,6 @@
       </div>
     </div>
 
-    <!-- Chat messages -->
-    <div class="chat-messages-container" id="chat-messages-container"></div>
-
-    <!-- File Upload Popup -->
     <div id="file-upload-popup" class="popup-overlay">
       <div class="popup-content">
         <h3>Add File or Photo</h3>

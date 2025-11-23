@@ -7,7 +7,6 @@ function showPage(pageId) {
   if (targetPage) {
     targetPage.classList.add("active");
   }
-
   updatePageTitle(pageId);
 }
 
@@ -17,7 +16,6 @@ function updatePageTitle(pageId) {
     "login-page": "KCHATAI Login",
     "signup-page": "KCHATAI Sign Up",
   };
-
   document.title = titles[pageId] || "KCHATAI";
 }
 
@@ -38,15 +36,17 @@ async function sendMessage() {
     activateChatInterface();
   }
 
-  // add user's message
+  // add user's message (Right side bubble)
   addMessageToChat(message, "sent");
   addChatToHistory(message);
   input.value = "";
 
   try {
     addTypingIndicator();
+    // 🧠 Call Cloud Backend (Render)
     const botReply = await sendMessageToBot(message);
     removeTypingIndicator();
+    // add AI's message (Left side text block)
     addMessageToChat(botReply, "received");
   } catch (error) {
     console.error("Error talking to backend:", error);
@@ -55,8 +55,8 @@ async function sendMessage() {
   }
 }
 
-// 🧠 Call Python backend → Gemini (LOCAL)
 async function sendMessageToBot(message) {
+  // UPDATED TO YOUR LIVE RENDER URL
   const response = await fetch("https://kchat-ai.onrender.com/chat", {
     method: "POST",
     headers: {
@@ -67,8 +67,6 @@ async function sendMessageToBot(message) {
 
   if (!response.ok) {
     console.error("Status:", response.status);
-    const text = await response.text();
-    console.error("Body:", text);
     throw new Error("Network response was not ok");
   }
 
@@ -105,8 +103,13 @@ function activateChatInterface() {
 function addMessageToChat(text, type) {
   const chatMessagesContainer = document.getElementById("chat-messages-container");
   const messageElement = document.createElement("div");
+  
+  // Add class 'message' AND 'message-sent' or 'message-received'
   messageElement.classList.add("message", `message-${type}`);
 
+  // If it's from AI, we might get markdown headers (## Title).
+  // The CSS now handles flattening them to look like sentences.
+  // We treat the text as innerHTML to allow basic formatting if needed.
   messageElement.innerHTML = `
     ${text}
     <span class="message-time">${formatTime(new Date())}</span>
@@ -121,8 +124,9 @@ function addTypingIndicator() {
   removeTypingIndicator(); // avoid duplicates
 
   typingElement = document.createElement("div");
+  // Typing indicator mimics the AI message style (left side)
   typingElement.classList.add("message", "message-received");
-  typingElement.textContent = "KCHATAI is typing...";
+  typingElement.innerHTML = "<em>KCHATAI is typing...</em>";
 
   chatMessagesContainer.appendChild(typingElement);
   chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
@@ -141,37 +145,18 @@ function formatTime(date) {
   return `${hours}:${minutes}`;
 }
 
-function startVoiceRecord() {
-  console.log("Starting voice recording...");
-}
-
-function startVoiceChat() {
-  console.log("Starting voice chat...");
-}
+function startVoiceRecord() { console.log("Starting voice recording..."); }
+function startVoiceChat() { console.log("Starting voice chat..."); }
 
 // File Upload Functions
-function showFileUpload() {
-  const popup = document.getElementById("file-upload-popup");
-  popup.classList.add("active");
-}
-
-function closeFileUpload() {
-  const popup = document.getElementById("file-upload-popup");
-  popup.classList.remove("active");
-}
-
-function selectFile() {
-  document.getElementById("file-input").click();
-}
-
-function selectPhoto() {
-  document.getElementById("photo-input").click();
-}
+function showFileUpload() { document.getElementById("file-upload-popup").classList.add("active"); }
+function closeFileUpload() { document.getElementById("file-upload-popup").classList.remove("active"); }
+function selectFile() { document.getElementById("file-input").click(); }
+function selectPhoto() { document.getElementById("photo-input").click(); }
 
 // Theme System
 function setTheme(theme) {
   console.log(`Setting theme to: ${theme}`);
-
   const body = document.body;
   body.classList.remove("dark-theme", "light-theme");
 
@@ -197,7 +182,6 @@ function setTheme(theme) {
 
 function showThemeOptions() {
   const themePopup = document.getElementById("theme-popup");
-
   if (themePopupOpen) {
     themePopup.classList.remove("active");
     themePopupOpen = false;
@@ -211,11 +195,7 @@ function showThemeOptions() {
 function closeThemePopupOnClickOutside(event) {
   const themePopup = document.getElementById("theme-popup");
   const clickedElement = event.target;
-
-  if (
-    !themePopup.contains(clickedElement) &&
-    !clickedElement.closest('.sidebar-option[onclick="showThemeOptions()"]')
-  ) {
+  if (!themePopup.contains(clickedElement) && !clickedElement.closest('.sidebar-option[onclick="showThemeOptions()"]')) {
     themePopup.classList.remove("active");
     themePopupOpen = false;
     document.removeEventListener("click", closeThemePopupOnClickOutside);
@@ -225,12 +205,6 @@ function closeThemePopupOnClickOutside(event) {
 // Sidebar Toggle
 function showMoreTools() {
   const sidebar = document.getElementById("sidebar");
-
-  if (!sidebar) {
-    console.error("Sidebar element not found!");
-    return;
-  }
-
   if (sidebarOpen) {
     sidebar.classList.remove("active");
     sidebarOpen = false;
@@ -242,12 +216,10 @@ function showMoreTools() {
 
 function startNewChat() {
   console.log("New chat clicked");
-
   if (sidebarOpen) {
     document.getElementById("sidebar").classList.remove("active");
     sidebarOpen = false;
   }
-
   if (chatActive) {
     const logoContainer = document.getElementById("main-logo-container");
     const chatTitleContainer = document.getElementById("chat-title-container");
@@ -263,24 +235,15 @@ function startNewChat() {
 
     chatMessagesContainer.style.display = "none";
     chatMessagesContainer.innerHTML = "";
-
     document.getElementById("chat-input").value = "";
     chatActive = false;
-
-    console.log("New chat started - interface reset");
-  } else {
-    console.log("Already on fresh chat");
   }
 }
 
-// Chat history stub
-function addChatToHistory(message) {
-  console.log(`Adding to history: ${message}`);
-}
+function addChatToHistory(message) { console.log(`Adding to history: ${message}`); }
 
 // MAIN INIT
 document.addEventListener("DOMContentLoaded", () => {
-  // Enter key to send
   const chatInput = document.getElementById("chat-input");
   if (chatInput) {
     chatInput.addEventListener("keypress", (e) => {
@@ -291,15 +254,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // File inputs
   const fileInput = document.getElementById("file-input");
-  const photoInput = document.getElementById("photo-input");
-
   if (fileInput) {
     fileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file) {
-        console.log("File selected:", file.name);
         closeFileUpload();
         if (!chatActive) activateChatInterface();
         addMessageToChat(`File attached: ${file.name}`, "sent");
@@ -307,11 +266,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const photoInput = document.getElementById("photo-input");
   if (photoInput) {
     photoInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file) {
-        console.log("Photo selected:", file.name);
         closeFileUpload();
         if (!chatActive) activateChatInterface();
         addMessageToChat(`Photo attached: ${file.name}`, "sent");
@@ -319,46 +278,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Close file popup when clicking outside
   const popup = document.getElementById("file-upload-popup");
   if (popup) {
     popup.addEventListener("click", (e) => {
-      if (e.target === popup) {
-        closeFileUpload();
-      }
+      if (e.target === popup) closeFileUpload();
     });
   }
 
-  // We removed login/signup from HTML, so these do nothing safely
-  const loginForm = document.getElementById("loginForm");
-  if (loginForm) {
-    loginForm.addEventListener("submit", (e) => e.preventDefault());
-  }
-
-  const signupForm = document.getElementById("signupForm");
-  if (signupForm) {
-    signupForm.addEventListener("submit", (e) => e.preventDefault());
-  }
-
-  // Social buttons
-  const googleButtons = document.querySelectorAll(".google-login, .google-signup-small");
-  googleButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      alert("Google authentication would be implemented here");
-    });
-  });
-
-  const facebookButton = document.querySelector(".facebook-signup-small");
-  if (facebookButton) {
-    facebookButton.addEventListener("click", () => {
-      alert("Facebook authentication would be implemented here");
-    });
-  }
-
-  // Theme load
   const savedTheme = localStorage.getItem("theme") || "light";
   setTheme(savedTheme);
-
-  // Start on main page
   showPage("main-page");
 });
