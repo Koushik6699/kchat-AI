@@ -54,7 +54,7 @@ body.dark-theme .tool-icon:hover { background: rgba(255,255,255,0.1); }
   z-index: 10;
 }
 .welcome-container.hidden { opacity: 0; pointer-events: none; }
-.main-logo { width: 180px; height: 140px; margin-bottom: 20px; }
+.main-logo { width: 200px; height: 200px; margin-bottom: 20px; }
 .chat-title { font-size: 26px; font-weight: 600; opacity: 0.8; }
 
 /* --- CHAT AREA (The Core) --- */
