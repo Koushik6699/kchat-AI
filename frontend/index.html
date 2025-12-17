@@ -3,109 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to KCHATAI</title>
+  <title>KCHATAI</title>
 
   <link rel="stylesheet" href="kchatcss.css" />
-  <link rel="stylesheet" href="kchat-fix.css" />
-
   <link rel="icon" href="kchatlogo.png" type="image/png" />
 </head>
 <body>
 
-  <div id="main-page" class="page active">
-    <div class="top-nav">
-      <div class="nav-buttons">
-        <div class="user-icon-container">
-          <span class="user-icon">👤</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="top-right-tools">
+  <div class="top-nav-bar">
+    <div class="nav-left">
       <div class="tool-icon" onclick="showMoreTools()">
         <span class="three-dots">⋯</span>
-        <div class="tooltip">More tools</div>
       </div>
       <div class="tool-icon" onclick="startNewChat()">
         <span class="pen-icon">✏️</span>
-        <div class="tooltip">New chat</div>
       </div>
     </div>
-
-    <div id="sidebar" class="sidebar">
-      <div class="sidebar-content">
-        <div class="sidebar-options">
-          <div class="sidebar-option" onclick="startNewChat()">
-            <span class="sidebar-icon">✏️</span>
-            <span>New Chat</span>
-          </div>
-          <div class="sidebar-option" onclick="showThemeOptions()">
-            <span class="sidebar-icon">🎨</span>
-            <span>Theme</span>
-          </div>
-          <div class="sidebar-option">
-            <span class="sidebar-icon">⚙️</span>
-            <span>Settings</span>
-          </div>
-        </div>
-
-        <div class="sidebar-history">
-          <h3>Recent Chats</h3>
-          <div class="history-divider"></div>
-          <div class="history-items">
-            <div class="history-item">
-              <span class="history-icon">💬</span>
-              <span class="history-text">How to make a website?</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <div id="theme-popup" class="theme-popup" onclick="event.stopPropagation();">
-      <div class="theme-option" onclick="setTheme('dark')">Dark</div>
-      <div class="theme-option" onclick="setTheme('light')">Light</div>
-      <div class="theme-option" onclick="setTheme('system')">System</div>
-    </div>
-
-    <div class="main-content">
-      <div class="logo-container" id="main-logo-container">
-        <img src="kchatlogo.png" alt="KCHATAI Logo" class="logo main-logo" />
-      </div>
-      <div class="chat-title-container" id="chat-title-container">
-        <h1 class="chat-title">How can I help you today?</h1>
-      </div>
-      
-      <div class="chat-messages-container" id="chat-messages-container"></div>
-
-      <div class="chat-input-container" id="chat-input-container">
-        <div class="input-wrapper">
-          <button class="add-file-btn" onclick="showFileUpload()">+</button>
-          <input type="text" class="chat-input" id="chat-input" placeholder="Feel free to ask..." autocomplete="off" />
-          <button class="mic-btn" onclick="startVoiceRecord()">
-            <img src="mike.png" alt="Microphone" class="icon-img" />
-          </button>
-          <button class="voice-chat-btn" onclick="startVoiceChat()">
-            <img src="voicechat.png" alt="Voice Chat" class="icon-img" />
-          </button>
-          <button class="send-btn" onclick="sendMessage()">
-            <img src="send.png" alt="Send" class="icon-img" />
-          </button>
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-options">
+        <div class="sidebar-option" onclick="startNewChat()">
+          <span>✏️ New Chat</span>
+        </div>
+        <div class="sidebar-option" onclick="showThemeOptions()">
+          <span>🎨 Theme</span>
         </div>
       </div>
+      <div class="sidebar-history">
+        <h3>History</h3>
+        <div class="history-items" id="history-list">
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="theme-popup" class="theme-popup" onclick="event.stopPropagation();">
+    <div class="theme-option" onclick="setTheme('dark')">Dark</div>
+    <div class="theme-option" onclick="setTheme('light')">Light</div>
+    <div class="theme-option" onclick="setTheme('system')">System</div>
+  </div>
+
+  <div class="main-content">
+    
+    <div id="welcome-screen" class="welcome-container">
+      <div class="logo-container">
+        <img src="kchatlogo.png" alt="KCHATAI Logo" class="main-logo" />
+      </div>
+      <h1 class="chat-title">How can I help you today?</h1>
     </div>
 
-    <div id="file-upload-popup" class="popup-overlay">
-      <div class="popup-content">
-        <h3>Add File or Photo</h3>
-        <div class="upload-options">
-          <button class="upload-option" onclick="selectFile()">📁 Choose File</button>
-          <button class="upload-option" onclick="selectPhoto()">📷 Choose Photo</button>
-        </div>
-        <button class="close-popup" onclick="closeFileUpload()">✕</button>
-        <input type="file" id="file-input" style="display: none" accept="*/*" />
-        <input type="file" id="photo-input" style="display: none" accept="image/*" />
+    <div class="chat-messages-container" id="chat-messages-container">
       </div>
+
+    <div class="chat-input-container" id="chat-input-container">
+      <div class="input-wrapper">
+        <button class="add-file-btn" onclick="showFileUpload()">+</button>
+        <input type="text" class="chat-input" id="chat-input" placeholder="Message KCHATAI..." autocomplete="off" />
+        <button class="mic-btn" onclick="startVoiceRecord()">
+          <img src="mike.png" alt="Mic" class="icon-img" />
+        </button>
+        <button class="voice-chat-btn" onclick="startVoiceChat()">
+          <img src="voicechat.png" alt="Voice" class="icon-img" />
+        </button>
+        <button class="send-btn" onclick="sendMessage()">
+          <img src="send.png" alt="Send" class="icon-img" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="file-upload-popup" class="popup-overlay">
+    <div class="popup-content">
+      <h3>Add Attachment</h3>
+      <div class="upload-options">
+        <button class="upload-option" onclick="selectFile()">📁 Document</button>
+        <button class="upload-option" onclick="selectPhoto()">📷 Photo</button>
+      </div>
+      <button class="close-popup" onclick="closeFileUpload()">✕</button>
+      <input type="file" id="file-input" style="display: none" />
+      <input type="file" id="photo-input" style="display: none" accept="image/*" />
     </div>
   </div>
 
