@@ -20,7 +20,7 @@ else:
     print("✅ API Key loaded successfully!")
 
 # model setup
-model = genai.GenerativeModel("models/gemini-2.5-flash")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 @app.route("/", methods=["GET"])
 def home():
