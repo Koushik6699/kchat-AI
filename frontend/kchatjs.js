@@ -13,9 +13,8 @@ const isLocal =
   location.hostname === "localhost" ||
   location.hostname === "127.0.0.1";
 
-const API_URL = isLocal
-  ? "http://127.0.0.1:5000/chat"
-  : "https://kchat-ai.onrender.com/chat";
+const API_URL = "https://kchat-ai-euqm.onrender.com/chat";
+
 
 /* ===============================
    CORE CHAT LOGIC
