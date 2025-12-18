@@ -4,43 +4,40 @@ from flask_cors import CORS
 import google.generativeai as genai
 from dotenv import load_dotenv
 
-# Load the secret .env file
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-# Get the key securely
-api_key = os.getenv("GEMINI_API_KEY")
+API_KEY = os.getenv("GEMINI_API_KEY")
+if not API_KEY:
+    raise RuntimeError("GEMINI_API_KEY missing")
 
-if not api_key:
-    print("❌ Error: GEMINI_API_KEY is missing! Check your .env file.")
-else:
-    genai.configure(api_key=api_key)
-    print("✅ API Key loaded successfully!")
+genai.configure(api_key=API_KEY)
+print("✅ Gemini API configured")
 
-# model setup
-model = genai.GenerativeModel("gemini-1.5-flash")
+# ✅ USE SUPPORTED MODEL
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 @app.route("/", methods=["GET"])
 def home():
-    return "KCHATAI local backend running ✅", 200
+    return "KCHATAI backend running", 200
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    data = request.get_json()
-    user_message = (data.get("message") or "").strip() if data else ""
-
-    if not user_message:
-        return jsonify({"reply": "Please type a message first."}), 400
-
     try:
-        response = model.generate_content(user_message)
-        bot_reply = getattr(response, "text", "").strip() or "Sorry, I couldn't generate a reply."
-        return jsonify({"reply": bot_reply})
+        data = request.get_json(force=True)
+        msg = data.get("message", "").strip()
+
+        if not msg:
+            return jsonify({"reply": "Please type something."}), 400
+
+        response = model.generate_content(msg)
+        return jsonify({"reply": response.text}), 200
+
     except Exception as e:
-        print("Error talking to Gemini:", e)
-        return jsonify({"reply": "Server error while talking to AI. Try again."}), 500
+        print("❌ Gemini Error:", e)
+        return jsonify({"reply": "Server error"}), 500
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
