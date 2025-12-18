@@ -7,7 +7,7 @@
 > **A robust, full-stack AI chatbot built from scratch using Flask and Vanilla JS.**
 
 ## 🔴 Live Demo
-**Experience the AI here:** 👉 **[https://kchat-ai-front.onrender.com](https://kchat-ai-front.onrender.com)**
+**Experience the AI here:** 👉 **[https://kchat-ai-front.onrender.com](https://kchat-ai.netlify.app/)**
 
 *(Note: The backend runs on a free tier. If the first message takes ~50 seconds, please be patient while the server wakes up!)*
 
